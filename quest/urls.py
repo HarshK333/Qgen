@@ -9,4 +9,6 @@ urlpatterns = [
 
     path('output/', views.get, name='get'),
     # path('', views.IndexView.as_view(), name='index'),
+    # /quest/output/final
+    path('output/final/', views.final, name='final'),
 ]

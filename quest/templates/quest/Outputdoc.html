@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>{% extends 'quest/base.html' %}
+{% block title %}Output{% endblock %}
+<script>
+    function saveEdits() {
+
+//get the editable element
+var editElem = document.getElementById("edit");
+
+//get the edited element content
+var userVersion = editElem.innerHTML;
+
+//save the content to local storage
+localStorage.userEdits = userVersion;
+
+//write a confirmation to the user
+document.getElementById("update").innerHTML="Edits saved!";
+    }
+
+    function checkEdits() {
+
+//find out if the user has previously saved edits
+if(localStorage.userEdits!=null)
+document.getElementById("edit").innerHTML = localStorage.userEdits;
+}
+</script>
+{% block body%}
+<div onload="checkEdits()">
+    <div class="container-fluid" id="edit" contenteditable="true">
+    <h3>Resolved:</h3>
+        <pre style="font-size:20px">{{ques}}</pre>
+    </div>
+    <input type="button" class="btn btn-success"  value="save my edits" onclick="saveEdits()"/>
+ </div>
+{% endblock %}

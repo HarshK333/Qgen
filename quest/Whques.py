@@ -2,15 +2,17 @@ import spacy
 import random
 def wh(txt,nlp,nlp1):
     ques=""
+    qu=[]
     doc = nlp(txt)
     list1 = list(doc.sents)
     c = -1
     k = 1
-    ans = ""
     for x in list1:
+        ans=""
         line = str(x)
         # print(line)
         line09 = nlp1(line)
+        line0=str(x)
         cnt = 0
         cnta = 0
         cntb = 0
@@ -263,5 +265,145 @@ def wh(txt,nlp,nlp1):
                 # print(str(k)+") "+str(ques))
                 ans = ans + str(k) + ") " + str(ques) + '\n'
                 k = k + 1
-    ques = ans
-    return ques
+        if ans!="":
+            qu.append(ans)
+    if len(qu)<1:
+        qu1=wh1(txt,nlp,nlp1)
+        for x in qu1:
+            qu.append(x)
+    return qu
+
+def wh1(txt,nlp,nlp1):
+    ques=""
+    qu=[]
+    doc = nlp(txt)
+    list1 = list(doc.sents)
+    c = -1
+    k = 1
+    for x in list1:
+        ans=""
+        line = str(x)
+        # print(line)
+        line09 = nlp1(line)
+        line0=str(x)
+        cnt = 0
+        cnta = 0
+        cntb = 0
+        cntc = 0
+        cntd = 0
+        c = c + 1
+        for ent in line09.ents:
+            if str(ent.label_) == "PERSON":
+                cnt = cnt + 1
+                line0e = line0.replace(str(ent), "?Who", 1)
+                l0 = line0e.split("?Who")
+                # print(line0)
+                break
+            if str(ent.label_) == "TIME" or str(ent.label_) == "DATE":
+                cnta = cnta + 1
+                z = " "
+                uz = ""
+                uz1 = ""
+                for token in line09:
+                    if "V" in str(token.tag_):
+                        uz = str(token.text)
+                        uz1 = str(token.lemma_)
+                        break
+                for token in line09:
+                    # print(token)
+                    if str(token.text) in str(ent):
+                        # print(z)
+                        break
+                    elif str(token.tag_) == "IN":
+                        z = z + " " + str(token.text)
+                        # print(z)
+                    else:
+                        z = ""
+                line0a = line0.replace(str(ent), "?When did", 1)
+                line0a = line0a.replace(uz, uz1, 1)
+                if z != "":
+                    # print(z+" ?When did")
+                    line0a = line0a.replace(z + " ?When did", " ?When did", 1)
+                    # print(line0a)
+                l0a = line0a.split("?When did")
+                break
+            elif str(ent.label_) == "MONEY" or str(ent.label_) == "QUANTITY":
+                cntb = cntb + 1
+                line0b = line0.replace(str(ent), "?How much did ", 1)
+                l0b = line0b.split("?How much did")
+                break
+            elif str(ent.label_) == "PERCENT":
+                cntc = cntc + 1
+                line0c = line0.replace(str(ent), "?How much percentage did ", 1)
+                l0c = line0c.split("?How much percentage did")
+                break
+            elif str(ent.label_) != "ORDINAL" or str(ent.label_) != "CARDINAL":
+                cntd = cntd + 1
+                line0d = line0.replace(str(ent), "?Which ", 1)
+                l0d = line0d.split("?Which")
+                break
+        if cnt > 0:
+            print(l0)
+            l0[0] = l0[0].replace(",", "")
+            l0[1] = l0[1].replace(".", "")
+            ques = "Who" + l0[1] + " " + l0[0] + "?"
+            # print(ques)
+            ans = ans + str(k) + ") " + str(ques) + '\n'
+            ans=ans.replace(".","")
+            ans=ans.replace("\r"," ")
+            ans = ans.replace("   ", " ")
+            ans = ans.replace("\n", " ")
+            ans = ans.replace("\r\n", " ")
+            ans = ans.replace("  ", " ")
+        if cnta > 0:
+            l0a[0] = l0a[0].replace(",", "")
+            l0a[1] = l0a[1].replace(".", "")
+            ques = "When did" + l0a[1] + " " + l0a[0] + "?"
+            # print(ques)
+            ans = ans + str(k) + ") " + str(ques) + '\n'
+            ans=ans.replace(".","")
+            ans=ans.replace("\r"," ")
+            ans = ans.replace("   ", " ")
+            ans = ans.replace("\n", " ")
+            ans = ans.replace("\r\n", " ")
+            ans = ans.replace("  ", " ")
+        if cntb > 0:
+            l0b[0] = l0b[0].replace(",", "")
+            l0b[1] = l0b[1].replace(".", "")
+            ques = "How much did" + l0b[0] + " " + l0b[1] + "?"
+            # print(ques)
+            ans = ans + str(k) + ") " + str(ques) + '\n'
+            ans=ans.replace(".","")
+            ans=ans.replace("\r"," ")
+            ans = ans.replace("   ", " ")
+            ans = ans.replace("\n", " ")
+            ans = ans.replace("\r\n", " ")
+            ans = ans.replace("  ", " ")
+        if cntc > 0:
+            l0c[0] = l0c[0].replace(",", "")
+            l0c[1] = l0c[1].replace(".", "")
+            ques = "How much percentage did" + l0c[0] + " " + l0c[1] + "?"
+            # print(ques)
+            ans = ans + str(k) + ") " + str(ques) + '\n'
+            ans=ans.replace(".","")
+            ans=ans.replace("\r"," ")
+            ans = ans.replace("\n", " ")
+            ans = ans.replace("   ", " ")
+            ans = ans.replace("\r\n", " ")
+            ans = ans.replace("  ", " ")
+        if cntd > 0:
+            # print(l0d)
+            l0d[0] = l0d[0].replace(",", "")
+            l0d[1] = l0d[1].replace(".", "")
+            ques = "Which place" + " " + l0d[0] + " " + l0d[1] + "?"
+            # print(ques)
+            ans = ans + str(k) + ") " + str(ques) + '\n'
+            ans=ans.replace(".","")
+            ans=ans.replace("\r"," ")
+            ans = ans.replace("\n", " ")
+            ans = ans.replace("\r\n", " ")
+            ans = ans.replace("   ", " ")
+            ans = ans.replace("  ", " ")
+        if ans != "":
+            qu.append(ans)
+    return qu

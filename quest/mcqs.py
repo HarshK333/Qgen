@@ -1,20 +1,20 @@
 import spacy
 import random
 def mcq(txt,nlp,nlp1):
+    PERSON=["Anamika","Anand","Sherlock","George","Kiran"]
     person_type = ["archaeologist", "farmer", "hunter", "hunter gatherer", "shopkeeper", "wholesaler",
                    "wandering herder"]
     animal = ["dog", "sheep", "goat", "cow", "pig", "deer"]
     tools = ["grinding stone", "flour", "pot", "utensil", "medal", "knife", "hand axe", "needles", "money"]
     years = ["12000", "4,500", "3,500", "1200", "3,200", "5,000"]
-    animal_type = ["wild", "domestic"]
     place = ["west asia", "southeast asia", "mekong delta", "europe", "satpura", "vindhya", "central india",
              "bhimbetka", "andaman and nicobar islands"]
-    state = ["madhya pradesh"]
+    state = ["madhya pradesh","rajasthan","maharashtra","bihar","kerala"]
     age = ["stone age", "metal age", "copper age", "bronze age", "paleolithic age", "mesolithic age", "neolithic age"]
-    metal = ["copper", "bronze", "tin", "iron"]
+    metal = ["copper", "bronze", "tin", "iron","zinc"]
     country = ["india", "egypt", "china", "turkey", "england", "germany", "united states"]
     work = ["hunt", "fish", "persistence hunt", "trade", " shipbuild"]
-    names = ["marco polo", "christopher columbus", "vasco da gama", "ferdinand magellan"]
+    names = ["marco polo", "christopher columbus", "vasco da gama", "ferdinand magellan","shivaji maharaj"]
     century = ["17th", "18th", "19th", "20th", "21st"]
     invention = ["car", "flight", "wheel", "locomotive", "electricity"]
     comm = ["printing press", "telephone", "telegraph", "typewriter", "radio", "television", "satellite", "internet",
@@ -34,10 +34,11 @@ def mcq(txt,nlp,nlp1):
     clm_type = ["hot", "humid", "pleasant", "cold", "temperate"]
     clm_2 = ["winter", "summer", "monsoon", "spring", "rainy"]
     global ques
+    qu=[]
     ques = ""
     cnt = 1
     doc = nlp1(txt)
-    dictn = [person_type, animal, tools, years, animal_type, place, age, metal, country, work, names,
+    dictn = [person_type, animal, tools, years, place, state, age, metal, country, work, names,
              century, invention, comm, calledc, rights, systems, posts, courts, sabha, calledg, direc,
              direc2, ctr, clm_type, clm_2]
     # print(text1)
@@ -59,6 +60,7 @@ def mcq(txt,nlp,nlp1):
         txt1 = str(line9)
         nounsinsent = []
         tk = ""
+        line09 = nlp1(txt1)
         for token in line9:
             # print(token.text,token.tag_,token.lemma_)
             if "NN" in str(token.tag_):
@@ -91,7 +93,7 @@ def mcq(txt,nlp,nlp1):
                 ans = txt1.replace(nouns, "________")
                 m = len(z)
                 # print(ans)
-                ques = ques + str(cnt) + "." + ans + "\n"
+                ques = str(cnt) + "." + ans + "\n"
                 cnt = cnt + 1
                 # print(ques)
                 number1 = random.randrange(0, 4)
@@ -114,14 +116,49 @@ def mcq(txt,nlp,nlp1):
                             notin.append(number)
                     i = i + 1
                 # print()
-                ques = ques + "\n"
+                #ques = ques + "\n"
                 # print("Correct answer:",nouns)
-                ques = ques + "Correct answer: " + str(nouns) + "\n"
+                #ques = ques + "Correct answer: " + str(nouns) + "\n"
                 # print()
-                ques = ques + "\n"
+                #ques = ques + "\n"
                 # print()
-                ques = ques + "\n"
+                #ques = ques + "\n"
+                qu.append(ques)
                 break
-    return ques
+        if len(nounsinsent)<3:
+            zu=[]
+            print("hahaha")
+            txt1 = str(line9)
+            for ent in line09.ents:
+                print(ent.label_)
+                if str(ent.label_) == 'PERSON':
+                    ans = txt1.replace(str(ent), "________")
+                    print(ans)
+                    print("hahah")
+                    zu.append(str(ent))
+                    ques = str(cnt) + "." + ans + "\n"
+                    cnt=cnt+1
+                    m = len(PERSON)
+                    io=0
+                    while io<3:
+                        numbr=random.randrange(0,m)
+                        if PERSON[numbr] not in zu:
+                            zu.append(PERSON[numbr])
+                            io=io+1
+                    numbr=random.randrange(0,4)
+                    temp=zu[0]
+                    zu[0]=zu[numbr]
+                    zu[numbr]=temp
+                    print(zu)
+                    for x1 in range(0,4):
+                        ques = ques + str(x1 + 1) + "." + zu[x1] + "\n"
+                    qu.append(ques)
+                    break
+
+
+
+
+
+    return qu
 
     # print(ques)

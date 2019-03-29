@@ -1,0 +1,37 @@
+{% extends 'quest/base.html' %}
+{% block title %}final{% endblock %}
+<script>
+    function saveEdits() {
+
+//get the editable element
+var editElem = document.getElementById("edit");
+
+//get the edited element content
+var userVersion = editElem.innerHTML;
+
+//save the content to local storage
+localStorage.userEdits = userVersion;
+
+//write a confirmation to the user
+document.getElementById("update").innerHTML="Edits saved!";
+
+    }
+
+    function checkEdits() {
+
+//find out if the user has previously saved edits
+if(localStorage.userEdits!=null)
+document.getElementById("edit").innerHTML = localStorage.userEdits;
+}
+</script>
+{% block body %}
+    <div onload="checkEdits()">
+    <div class="container-fluid" id="edit" contenteditable="true">
+        {% for que in ques %}
+        <pre style= "font-family: 'Arial Black';font-size: 15px" > {{ que }}</pre>
+    {% endfor %}
+        <input type="button" class="btn btn-success"  value="save my edits" onclick="saveEdits()"/>
+    </div>
+
+        </div>
+{% endblock %}
