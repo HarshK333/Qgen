@@ -1,11 +1,6 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.views import generic
-from django.views.generic import View
-
 import spacy
 import random
-def mcq(txt):
+def mcq(txt,nlp,nlp1):
     person_type = ["archaeologist", "farmer", "hunter", "hunter gatherer", "shopkeeper", "wholesaler",
                    "wandering herder"]
     animal = ["dog", "sheep", "goat", "cow", "pig", "deer"]
@@ -40,8 +35,6 @@ def mcq(txt):
     clm_2 = ["winter", "summer", "monsoon", "spring", "rainy"]
     global ques
     ques = ""
-    nlp = spacy.load('en_coref_md')
-    nlp1 = spacy.load('en_core_web_md')
     cnt = 1
     doc = nlp1(txt)
     dictn = [person_type, animal, tools, years, animal_type, place, age, metal, country, work, names,

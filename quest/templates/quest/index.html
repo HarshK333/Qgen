@@ -1,6 +1,7 @@
+{% extends 'quest/base.html' %}
 {% block body %}
     <div>
-        <h1>Welcome to Smart Questions Generator</h1>
+        <h1>Welcome to Smart Question Generator </h1>
     </div >
         <form action="{% url 'quest:get' %}" method="post" name="myform">
             {% csrf_token %}
@@ -10,6 +11,7 @@
                  <button type="submit" class="btn btn-success" name="MCQS">MCQs</button>
                  <button type="submit" class="btn btn-primary" name="WH">Answer the following</button>
                  <button type="submit" class="btn btn-warning" name="FIB">Fill in the blanks Question</button>
+                 <button type="submit" style="background-color: blue" class="btn" name="PR">Pronoun Resolution</button>
              </div>
         </form>
 
