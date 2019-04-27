@@ -3,7 +3,10 @@ import random
 def wh(txt,nlp,nlp1):
     ques=""
     qu=[]
-    doc = nlp(txt)
+    doc1=nlp(txt)
+    doc3= doc1._.coref_resolved
+    txt = str(doc3)
+    doc=nlp(txt)
     list1 = list(doc.sents)
     c = -1
     k = 1
@@ -26,7 +29,7 @@ def wh(txt,nlp,nlp1):
                 if (token.tag_ == "VBP"):
                     b = str(token.text)
                     n = str(m).split(b)
-                    ques = str(k) + ") " + "What " + b + " " + n[0].lower() + n[1] + '?'
+                    ques = "Q)" + "What " + b + " " + n[0].lower() + n[1] + '?'
                     q = nlp(ques)
                     for t in q:
                         if str(t.tag_) == "NN":
@@ -34,7 +37,7 @@ def wh(txt,nlp,nlp1):
                             break
                     if b == 1:
                         # print(str(k)+") "+ques)
-                        ans = ans + str(k) + ") " + ques + '\n'
+                        ans = ans + "Q)" + ques + '\n'
                         k = k + 1
                         break
         elif "when" in line:
@@ -53,7 +56,7 @@ def wh(txt,nlp,nlp1):
             else:
                 ques = 'When' + ' ' + str(line1) + '?'
             # print(str(k)+") "+ques)
-            ans = ans + str(k) + ") " + ques + '\n'
+            ans = ans + "Q)"+ ques + '\n'
             k = k + 1
         elif "because" in line.lower():
             l = line.lower().split('because')
@@ -68,7 +71,7 @@ def wh(txt,nlp,nlp1):
                         n[1] = n[1].replace(n[1][-1], '?')
                         ques = "Which" + "" + n[1].lower()
                         # print(str(k)+") "+ques)
-                        ans = ans + str(k) + ") " + ques + '\n'
+                        ans = ans + "Q)"+ ques + '\n'
                         k = k + 1
             else:
                 for token in line1:
@@ -88,7 +91,7 @@ def wh(txt,nlp,nlp1):
                             break
                     if b == 1:
                         # print(str(k)+") "+ques)
-                        ans = ans + str(k) + ") " + ques + '\n'
+                        ans = ans + "Q)" + ques + '\n'
                         k = k + 1
                     break
         elif "called" in line:
@@ -104,7 +107,7 @@ def wh(txt,nlp,nlp1):
                         break
                 if b == 1:
                     # print(str(k)+") "+ques)+'\n'
-                    ans = ans + str(k) + ") " + ques + '\n'
+                    ans = ans + "Q)" + ques + '\n'
                     k = k + 1
                 break
         elif "As a result" in line:
@@ -121,7 +124,7 @@ def wh(txt,nlp,nlp1):
                 p = n[1]
                 ques = 'Why' + ' ' + h + ' ' + n[0].lower() + p[:-1] + '?'
                 # print(str(k)+") "+ques)
-                ans = ans + str(k) + ") " + ques + '\n'
+                ans = ans + "Q)"+ ques + '\n'
             else:
                 for token in m:
                     if (token.tag_ == "VBP"):
@@ -136,7 +139,7 @@ def wh(txt,nlp,nlp1):
                     n = re.sub(str(token.text), str(token.lemma_), n)
             ques = 'Why' + ' ' + a + ' ' + n.lower() + '?'
             # print(str(k)+") "+ques)
-            ans = ans + str(k) + ") " + ques + '\n'
+            ans = ans + "Q)"+ ques + '\n'
             k = k + 1
             break
         elif "for example" in line.lower() or "for instance" in line.lower():
@@ -156,7 +159,7 @@ def wh(txt,nlp,nlp1):
                 if ques[-1] == ",":
                     ques = ques.replace(ques[-1], '.')
             # print(str(k)+") "+ques)
-            ans = ans + str(k) + ") " + ques + '\n'
+            ans = ans + "Q)" + ques + '\n'
             k = k + 1
         elif "since" in line:
             z = 0
@@ -193,7 +196,7 @@ def wh(txt,nlp,nlp1):
                 else:
                     ques = 'Since when' + ' ' + str(line1) + '?'
             # print(str(k)+") "+ques)
-            ans = ans + str(k) + ") " + ques + '\n'
+            ans = ans + "Q)"+ ques + '\n'
             k = k + 1
         elif "hence" in line.lower() or "thus" in line.lower() or "therefore" in line.lower():
             if "hence" in line.lower():
@@ -204,7 +207,7 @@ def wh(txt,nlp,nlp1):
                 l = (line.lower()).split('therefore')
             ques = 'Explain why' + ' ' + str(l[1]) + '?'
             # print(str(k)+") "+ques)
-            ans = ans + str(k) + ") " + ques + '\n'
+            ans = ans + "Q)"+ ques + '\n'
             k = k + 1
         elif "although" in line or "though" in line or "however" in line:
             if "although" in line:
@@ -229,15 +232,15 @@ def wh(txt,nlp,nlp1):
                 p = m[1]
                 ques = h.capitalize() + ' ' + m[0].lower() + p[:-1] + '?'
                 # print(str(k)+") "+ques)
-                ans = ans + str(k) + ") " + ques + '\n'
+                ans = ans + "Q)" + ques + '\n'
                 k = k + 1
                 h1 = h + '\'t'
                 ques = h1.capitalize() + ' ' + m[0].lower() + p[:-1] + '?'
                 # print(str(k)+") "+ques)
-                ans = ans + str(k) + ") " + ques + '\n'
+                ans = ans + "Q)" + ques + '\n'
                 k = k + 1
             # print(str(k)+") "+ques)
-            ans = ans + str(k) + ") " + ques + '\n'
+            ans = ans + "Q)" + ques + '\n'
             k = k + 1
             break
         elif "-" in line:
@@ -251,7 +254,7 @@ def wh(txt,nlp,nlp1):
                         m = l[0][1]
                     ques = "Write in detail about " + str(m).lower() + "?"
                 # print(str(k)+") "+ques)
-                ans = ans + str(k) + ") " + ques + '\n'
+                ans = ans + "Q)" + ques + '\n'
                 k = k + 1
         elif str(line.isupper()) == "True" and "SUMMARY" not in line:
             b = 0
@@ -263,7 +266,7 @@ def wh(txt,nlp,nlp1):
                     break
             if b == 0:
                 # print(str(k)+") "+str(ques))
-                ans = ans + str(k) + ") " + str(ques) + '\n'
+                ans = ans + "Q)" + str(ques) + '\n'
                 k = k + 1
         if ans!="":
             qu.append(ans)
@@ -348,7 +351,7 @@ def wh1(txt,nlp,nlp1):
             l0[1] = l0[1].replace(".", "")
             ques = "Who" + l0[1] + " " + l0[0] + "?"
             # print(ques)
-            ans = ans + str(k) + ") " + str(ques) + '\n'
+            ans = ans + "Q)"+ str(ques) + '\n'
             ans=ans.replace(".","")
             ans=ans.replace("\r"," ")
             ans = ans.replace("   ", " ")
@@ -360,7 +363,7 @@ def wh1(txt,nlp,nlp1):
             l0a[1] = l0a[1].replace(".", "")
             ques = "When did" + l0a[1] + " " + l0a[0] + "?"
             # print(ques)
-            ans = ans + str(k) + ") " + str(ques) + '\n'
+            ans = ans + "Q)" + str(ques) + '\n'
             ans=ans.replace(".","")
             ans=ans.replace("\r"," ")
             ans = ans.replace("   ", " ")
@@ -372,7 +375,7 @@ def wh1(txt,nlp,nlp1):
             l0b[1] = l0b[1].replace(".", "")
             ques = "How much did" + l0b[0] + " " + l0b[1] + "?"
             # print(ques)
-            ans = ans + str(k) + ") " + str(ques) + '\n'
+            ans = ans + "Q)" + str(ques) + '\n'
             ans=ans.replace(".","")
             ans=ans.replace("\r"," ")
             ans = ans.replace("   ", " ")
@@ -384,7 +387,7 @@ def wh1(txt,nlp,nlp1):
             l0c[1] = l0c[1].replace(".", "")
             ques = "How much percentage did" + l0c[0] + " " + l0c[1] + "?"
             # print(ques)
-            ans = ans + str(k) + ") " + str(ques) + '\n'
+            ans = ans + "Q)"+ str(ques) + '\n'
             ans=ans.replace(".","")
             ans=ans.replace("\r"," ")
             ans = ans.replace("\n", " ")
@@ -397,7 +400,7 @@ def wh1(txt,nlp,nlp1):
             l0d[1] = l0d[1].replace(".", "")
             ques = "Which place" + " " + l0d[0] + " " + l0d[1] + "?"
             # print(ques)
-            ans = ans + str(k) + ") " + str(ques) + '\n'
+            ans = ans + str(k) + "Q)" + str(ques) + '\n'
             ans=ans.replace(".","")
             ans=ans.replace("\r"," ")
             ans = ans.replace("\n", " ")

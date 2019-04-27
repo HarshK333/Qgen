@@ -34,10 +34,9 @@ document.getElementById("edit").innerHTML = localStorage.userEdits;
 </script>
 {% block body%}
 <div onload="checkEdits()">
-    <div class="container-fluid" id="edit" contenteditable="true">
+    <div class="container-fluid" id="edit" contenteditable="false">
     <h3>Resolved:</h3>
         <pre style="font-size:20px">{{ques}}</pre>
     </div>
-    <input type="button" class="btn btn-success"  value="save my edits" onclick="saveEdits()"/>
  </div>
 {% endblock %}

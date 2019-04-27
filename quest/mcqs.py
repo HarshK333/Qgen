@@ -1,7 +1,7 @@
-import spacy
 import random
 def mcq(txt,nlp,nlp1):
-    PERSON=["Anamika","Anand","Sherlock","George","Kiran"]
+    uz1 = ["a", "b", "c", "d"]
+    PERSON=["Anamika","Anand","Sherlock","George","Kiran","Bajirao","Gandhiji","Bhagat Singh","MK Sinha","Narendra Modi"]
     person_type = ["archaeologist", "farmer", "hunter", "hunter gatherer", "shopkeeper", "wholesaler",
                    "wandering herder"]
     animal = ["dog", "sheep", "goat", "cow", "pig", "deer"]
@@ -37,7 +37,10 @@ def mcq(txt,nlp,nlp1):
     qu=[]
     ques = ""
     cnt = 1
-    doc = nlp1(txt)
+    doc1=nlp(txt)
+    doc3= doc1._.coref_resolved
+    txt = str(doc3)
+    doc=nlp1(txt)
     dictn = [person_type, animal, tools, years, place, state, age, metal, country, work, names,
              century, invention, comm, calledc, rights, systems, posts, courts, sabha, calledg, direc,
              direc2, ctr, clm_type, clm_2]
@@ -90,10 +93,10 @@ def mcq(txt,nlp,nlp1):
                     break
             if fl == 1:
                 # print(nouns)
-                ans = txt1.replace(nouns, "________")
+                ans = txt1.replace(nouns, "________",1)
                 m = len(z)
                 # print(ans)
-                ques = str(cnt) + "." + ans + "\n"
+                ques = "Q." + ans + "\n"
                 cnt = cnt + 1
                 # print(ques)
                 number1 = random.randrange(0, 4)
@@ -109,10 +112,10 @@ def mcq(txt,nlp,nlp1):
                     else:
                         if i == number1:
                             # print(i+1,".",nouns)
-                            ques = ques + str(i + 1) + "." + str(nouns) + "\n"
+                            ques = ques + uz1[i] +"."+ str(nouns) + "\n"
                         else:
                             # print(i+1,".",z[number])
-                            ques = ques + str(i + 1) + "." + str(z[number]) + "\n"
+                            ques = ques + uz1[i] +"."+ str(z[number]) + "\n"
                             notin.append(number)
                     i = i + 1
                 # print()
@@ -125,35 +128,35 @@ def mcq(txt,nlp,nlp1):
                 #ques = ques + "\n"
                 qu.append(ques)
                 break
-        if len(nounsinsent)<3:
-            zu=[]
-            print("hahaha")
-            txt1 = str(line9)
-            for ent in line09.ents:
-                print(ent.label_)
-                if str(ent.label_) == 'PERSON':
-                    ans = txt1.replace(str(ent), "________")
-                    print(ans)
-                    print("hahah")
-                    zu.append(str(ent))
-                    ques = str(cnt) + "." + ans + "\n"
-                    cnt=cnt+1
-                    m = len(PERSON)
-                    io=0
-                    while io<3:
-                        numbr=random.randrange(0,m)
-                        if PERSON[numbr] not in zu:
-                            zu.append(PERSON[numbr])
-                            io=io+1
-                    numbr=random.randrange(0,4)
-                    temp=zu[0]
-                    zu[0]=zu[numbr]
-                    zu[numbr]=temp
-                    print(zu)
-                    for x1 in range(0,4):
-                        ques = ques + str(x1 + 1) + "." + zu[x1] + "\n"
-                    qu.append(ques)
-                    break
+        zu=[]
+        print("hahaha")
+        txt1 = str(line9)
+        for ent in line09.ents:
+            print(ent.label_)
+            if str(ent.label_) == 'PERSON':
+                ans = txt1.replace(str(ent), "________",1)
+                print(ans)
+                print("hahah")
+                zu.append(str(ent))
+                ques = "Q." + ans + "\n"
+                cnt=cnt+1
+                m = len(PERSON)
+                io=0
+                while io<3:
+                    numbr=random.randrange(0,m)
+                    if PERSON[numbr] not in zu:
+                        zu.append(PERSON[numbr])
+                        io=io+1
+                numbr=random.randrange(0,4)
+                temp=zu[0]
+                zu[0]=zu[numbr]
+                zu[numbr]=temp
+                print(zu)
+                for x1 in range(0,4):
+                    ques = ques + uz1[x1] + "." + zu[x1] + "\n"
+
+                qu.append(ques)
+                break
 
 
 

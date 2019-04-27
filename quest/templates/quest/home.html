@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home</title>
+    {% load staticfiles %}
+  <link href="{% static 'quest/home.css' %}" rel='stylesheet' type='text/css'>
+</head>
+<body background="../../static/quest/im/b.jpg">
+  <ul class="block-menu">
+  <li><a href="#" class="three-d">
+    Home
+    <span aria-hidden="true" class="three-d-box">
+      <span class="f">Home</span>
+      <span class="b">Home</span>
+    </span>
+  </a></li>
+  <li><a href="{% url 'quest:fli' %}" class="three-d">
+    TEXTBOOK
+    <span aria-hidden="true" class="three-d-box">
+      <span class="f">TEXTBOOK</span>
+      <span class="b">TEXTBOOK</span>
+    </span>
+  </a></li>
+          <li><a href="{% url 'quest:index' %}" class="three-d">
+    INPUT TEXT
+    <span aria-hidden="true" class="three-d-box">
+      <span class="f">INPUT TEXT</span>
+      <span class="b">INPUT TEXT</span>
+    </span>
+  </a></li>
+  <li><a href="#" class="three-d">
+    About us
+    <span aria-hidden="true" class="three-d-box">
+      <span class="f">About us</span>
+      <span class="b">About us</span>
+    </span>
+  </a></li>
+  <li id="pro"><a href="#" >
+<div style="color:black;font-size: 32px;font-family:Impact;margin-left:30px;font-style: italic;">Smart question generator</div>
+  </a></li>
+
+  <!-- more items here -->
+</ul>
+<div class="wrap">
+  <div class="cube">
+    <div class="front">
+      <img src="../../static/quest/images/i2.jpg">
+    </div>
+    <div class="back">
+      <img src="../../static/quest/images/i4.jpg">
+    </div>
+    <div class="top">
+      <img src="../../static/quest/images/i5.jpg">
+    </div>
+    <div class="bottom">
+      <img src="../../static/quest/images/i6.jpg">
+    </div>
+    <div class="left">
+      <img src="../../static/quest/images/i7.jpg">
+    </div>
+    <div class="right">
+      <img src="../../static/quest/images/i8.jpg">
+    </div>
+  </div>
+</div>
+<div class="container">
+  <button class="button" style="vertical-align:middle" onclick=(location.href="{% url 'quest:fli' %}")><span>Get Started &#8594;</span></button>
+</div>
+</body>
+
+</html>

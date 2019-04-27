@@ -1,69 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head>{% block head %}
     <meta charset="UTF-8">
     <title>{% block title %}Smart QG{% endblock %}</title>
     {% load staticfiles %}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="{% static 'quest/style.css'  %}" />
+     <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+     <link href="{% static 'quest/home.css' %}" rel='stylesheet' type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+{% endblock %}
 </head>
-<body>
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-    <!-- Header -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="index.html">Smart Question Generator</a>
-        </div>
 
-        <!-- Items-->
-        <div class="collapse navbar-collapse" id="#topNavbar">
+<body background="{% static 'quest/im/b.jpg' %}">
+<div>
+    <
+</div>
+  <ul class="block-menu">
+  <li><a href={% url 'quest:home' %} class="three-d">
+    Home
+    <span aria-hidden="true" class="three-d-box">
+      <span class="f">Home</span>
+      <span class="b">Home</span>
+    </span>
+  </a></li>
+  <li><a href="{% url 'quest:fli' %}" class="three-d">
+    TEXTBOOK
+    <span aria-hidden="true" class="three-d-box">
+      <span class="f">TEXTBOOK</span>
+      <span class="b">TEXTBOOK</span>
+    </span>
+  </a></li>
 
-            <ul class="nav navbar-nav">
-                <li class="">
-                    <a href="#">
-                        <span class="glyphicon" areia-hidden="true"></span>
-                    </a>
-                </li>
-                 <li class="">
-                    <a href="#">
-                        <span class="glyphicon" areia-hidden="true"></span>
-                    </a>
-                </li>
-            </ul>
-
-            <form class="navbar-form navbar-left" role="search" method="get" action="#">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="q" value="">
-                </div>
-                <button type="submit" class="btn btn-default">Search</button>
-            </form>
-
-            <ul class="nav navbar-nav navbar-right">
-                <li class="">
-                    <a href="#">
-                        <span class="glyphicon" areia-hidden="true"></span>
-                    </a>
-                </li>
-
-                <li class="">
-                    <a href="#">
-                        <span class="glyphicon glyphicon-off" areia-hidden="true"></span>&nbsp; Logout
-                    </a>
-                </li>
-            </ul>
-
-        </div>
-
-    </div>
-</nav>
+      <li><a href="{% url 'quest:index' %}" class="three-d">
+    INPUT TEXT
+    <span aria-hidden="true" class="three-d-box">
+      <span class="f">INPUT TEXT</span>
+      <span class="b">INPUT TEXT</span>
+    </span>
+  </a></li>
+  <li><a href="#" class="three-d">
+    About us
+    <span aria-hidden="true" class="three-d-box">
+      <span class="f">About us</span>
+      <span class="b">About us</span>
+    </span>
+  </a></li>
+  <li id="pro"><a href="#" class="three-d">
+      <div style="color:black;font-size: 32px;font-family:Impact;margin-left:30px;font-style: italic;">Smart question generator</div>
+  </a></li>
+  <!-- more items here -->
+</ul>
 {% block body %}
 {% endblock %}
 </body>
